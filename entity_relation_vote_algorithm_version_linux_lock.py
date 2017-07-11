@@ -12,6 +12,11 @@ import time
     ubuntu机器上是python3.x，所以要修改成3.x的版本
 """
 
+
+"""
+    python3.x的程序在加载数据的时候有问题
+"""
+
 # def printEscapeStr(object):
 #     '''
 #
@@ -282,7 +287,7 @@ def convertDataFormat(infoList):
     sentenceFeatureList = []
 
     for line in infoList:
-        line = line.strip().decode('utf-8')
+        line = line.decode('utf-8')
         # print(len(line.decode('utf-8').strip().split('||')))
         # print(len(line.decode('utf-8').strip().split('||')),line.strip().split('||'))
         # exit(0)
@@ -389,10 +394,10 @@ def readListFromTxt(filePath):
 
 def getRelationShipDic():
 
-    asymmetricInFilePath = 'asymmetricRelationShip.txt'
-    # asymmetricInFilePath = '/data/wangtd/workspace/re/resource/asymmetricRelationShip.txt'
-    symmetricInFilePath = 'symmetricRelationShip.txt'
-    # symmetricInFilePath = '/data/wangtd/workspace/re/resource/symmetricRelationShip.txt'
+    # asymmetricInFilePath = 'asymmetricRelationShip.txt'
+    asymmetricInFilePath = '/data/wangtd/workspace/re/resource/asymmetricRelationShip.txt'
+    # symmetricInFilePath = 'symmetricRelationShip.txt'
+    symmetricInFilePath = '/data/wangtd/workspace/re/resource/symmetricRelationShip.txt'
 
     infoList = readListFromTxt(asymmetricInFilePath)
     infoList.extend(readListFromTxt(symmetricInFilePath))
@@ -415,8 +420,8 @@ def getRelationShipDic():
 
 if __name__ == '__main__':
 
-    # outputPath = '/data/wangtd/workspace/re/analysis_vote_sentence_fnlp_150w-2100w.txt'
-    outputPath = 'analysis_vote_sentence_fnlp_150w-2100w.txt'
+    outputPath = '/data/wangtd/workspace/re/analysis_vote_sentence_fnlp_150w-2100w.txt'
+    # outputPath = 'analysis_vote_sentence_fnlp_150w-2100w.txt'
 
     ## 配置
     pd.set_option('display.width', 300)
@@ -426,8 +431,8 @@ if __name__ == '__main__':
     print('startTime:',startTime)
 
     ## 加载停用词列表
-    # stopWordPath = '/data/wangtd/workspace/re/resource/stopWordList.txt'
-    stopWordPath = 'stopWordList.txt'
+    stopWordPath = '/data/wangtd/workspace/re/resource/stopWordList.txt'
+    # stopWordPath = 'stopWordList.txt'
     stopWordList = readListFromTxt(stopWordPath)
     # 这地方加入临时逻辑，后面可以进行停用词合并
     stopWordList = list(set(stopWordList))
@@ -469,37 +474,29 @@ if __name__ == '__main__':
     # sentenceListTxt,sentenceFeatureListTxt = convertDataFormat(infoListPart)
 
     ## 3 加载 fnlp 命名实体识别数据 旧版数据
-    # fnlpListPath = '/data/wangtd/workspace/re/data/sentence_and_feature_150w-900w_fnlp_old.txt'
-    fnlpListPath = 'sentence_and_feature_test.txt'
+    fnlpListPath = '/data/wangtd/workspace/re/data/sentence_and_feature_150w-900w_fnlp_old.txt'
+    # fnlpListPath = 'sentence_and_feature_test.txt'
 
     fnlpOldDataList = readListFromTxt(fnlpListPath)
-    print('原始-数据-旧 len:',len(fnlpOldDataList))
-    i = 0
-    for item in fnlpOldDataList:
-        print(item.decode('utf-8'))
-        i += 1
-        if i==10:break
-    exit(0)
 
     fnlpSentenceList_old, fnlpSentenceFeatureList_old = convertDataFormat(fnlpOldDataList)
 
-    print('处理-数据-旧 len:',len(fnlpSentenceList_old))
     sentenceList.extend(fnlpSentenceList_old)
     sentenceFeatureList.extend(fnlpSentenceFeatureList_old)
 
     ## 4 加载 fnlp 命名实体识别数据 数据新接口
 
-    # fnlpNewDataListPath = '/data/wangtd/workspace/re/data/sentence_and_feature_900w-2100w_fnlp_new.txt'
-    fnlpNewDataListPath = 'sentence_and_feature_test_new.txt'
+    fnlpNewDataListPath = '/data/wangtd/workspace/re/data/sentence_and_feature_900w-2100w_fnlp_new.txt'
+    # fnlpNewDataListPath = 'sentence_and_feature_test_new.txt'
 
     fnlpNewDataList = readListFromTxt(fnlpNewDataListPath)
-    print('原始-数据-新 len:', len(fnlpNewDataList))
 
     fnlpSentenceList_new, fnlpSentenceFeatureList_new = convertNewDataFormat(fnlpNewDataList)
-    print('处理-数据-新 len:', len(fnlpSentenceList_new))
 
     sentenceList.extend(fnlpSentenceList_new)
     sentenceFeatureList.extend(fnlpSentenceFeatureList_new)
+
+
 
 
 
@@ -509,7 +506,7 @@ if __name__ == '__main__':
 
     # inout.writeList2Txt(inout.getDataTestPath('sentence.txt'),sentenceList)
     # inout.writeFnlpSentenceFeature2Txt(inout.getDataTestPath('sentenceFeature.txt'),sentenceFeatureList)
-    exit(0)
+    # exit(0)
 
 
 
