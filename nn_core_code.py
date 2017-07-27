@@ -86,12 +86,12 @@ if __name__ == '__main__':
     '''
 
     ## predict
-    print 'X: ',X
-    print 'Y: ',Y
+    print('X: ',X)
+    print('Y: ',Y)
 
-    print sess.run(y,feed_dict={x:X})
+    print(sess.run(y,feed_dict={x:X}))
 
-    print sess.run(act_h1,feed_dict={x:X})
+    print(sess.run(act_h1,feed_dict={x:X}))
 
 
 
